@@ -500,18 +500,25 @@ footer {
         </div>
 
         <div class="choice-group">
-          <div class="choice-label">実家の所在地<span class="required">必須</span></div>
-          <div class="select-wrap">
-            <select id="pref" onchange="data.pref=this.value">
-              <option value="">都道府県を選択</option>
-              <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option>
-              <option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option>
-              <option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option><option>岐阜県</option>
-              <option>静岡県</option><option>愛知県</option><option>三重県</option><option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
-              <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option>
-              <option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option><option>佐賀県</option><option>長崎県</option>
-              <option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
-            </select>
+          <div class="choice-label">実家の郵便番号<span class="required">必須</span></div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="text" id="zipInput" maxlength="8" placeholder="例：123-4567"
+              style="flex:1;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:'Noto Sans JP',sans-serif;color:var(--text);"
+              oninput="onZipInput(this.value)">
+            <button onclick="searchZip()" style="padding:12px 16px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;white-space:nowrap;">住所検索</button>
+          </div>
+          <div id="zipStatus" style="font-size:12px;color:var(--text-sub);margin-top:6px;min-height:18px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+            <div>
+              <div style="font-size:12px;color:var(--text-sub);margin-bottom:4px;">都道府県</div>
+              <input type="text" id="prefDisplay" readonly placeholder="自動入力"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--gray-light);font-family:'Noto Sans JP',sans-serif;color:var(--text);">
+            </div>
+            <div>
+              <div style="font-size:12px;color:var(--text-sub);margin-bottom:4px;">市区町村</div>
+              <input type="text" id="cityDisplay" readonly placeholder="自動入力"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--gray-light);font-family:'Noto Sans JP',sans-serif;color:var(--text);">
+            </div>
           </div>
         </div>
 
@@ -634,9 +641,54 @@ footer {
 </footer>
 
 <script>
+
+// 郵便番号入力処理（ハイフン自動挿入）
+function onZipInput(val) {
+  const nums = val.replace(/[^0-9]/g, '');
+  if (nums.length >= 4) {
+    document.getElementById('zipInput').value = nums.slice(0,3) + '-' + nums.slice(3,7);
+  }
+  if (nums.length === 7) searchZip();
+}
+
+// 郵便番号→住所検索（zipcloud API）
+async function searchZip() {
+  const zip = document.getElementById('zipInput').value.replace(/-/g,'');
+  const status = document.getElementById('zipStatus');
+  if (zip.length !== 7) {
+    status.textContent = '7桁の郵便番号を入力してください';
+    status.style.color = 'var(--amber)';
+    return;
+  }
+  status.textContent = '検索中...';
+  status.style.color = 'var(--text-sub)';
+  try {
+    const res = await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + zip);
+    const json = await res.json();
+    if (json.results) {
+      const r = json.results[0];
+      const pref = r.address1;
+      const city = r.address2;
+      document.getElementById('prefDisplay').value = pref;
+      document.getElementById('cityDisplay').value = city;
+      data.pref = pref;
+      data.city = city;
+      data.zip = zip;
+      status.textContent = '✓ ' + pref + city + ' が見つかりました';
+      status.style.color = 'var(--green)';
+    } else {
+      status.textContent = '住所が見つかりませんでした。郵便番号を確認してください';
+      status.style.color = '#c03030';
+    }
+  } catch(e) {
+    status.textContent = '通信エラーが発生しました。再度お試しください';
+    status.style.color = '#c03030';
+  }
+}
+
 // データ保持
 const data = {
-  age: '', pref: '', type: '', status: '',
+  age: '', pref: '', city: '', zip: '', type: '', status: '',
   age2: '', heirs: '', pension: ''
 };
 
@@ -651,7 +703,7 @@ function select(btn, key, val) {
 // STEP1 → STEP2
 function goStep2() {
   if (!data.age || !data.pref || !data.type || !data.status) {
-    alert('すべての項目を選択してください');
+    alert('すべての項目を入力・選択してください。\n郵便番号から住所を検索してください。');
     return;
   }
   document.getElementById('step1').classList.add('hidden');
@@ -667,7 +719,12 @@ function goStep2() {
 function goStep2FromResult() {
   document.getElementById('resultSection').style.display = 'none';
   document.getElementById('step2').classList.remove('hidden');
+  document.getElementById('step1').classList.add('hidden');
   document.getElementById('detailPrompt').style.display = 'none';
+  document.getElementById('dot2').classList.add('active');
+  document.getElementById('dot2').classList.remove('done');
+  document.getElementById('dot3').classList.remove('active','done');
+  document.getElementById('line2').classList.remove('done');
   window.scrollTo({top: document.getElementById('shindan').offsetTop - 60, behavior: 'smooth'});
 }
 
@@ -718,7 +775,7 @@ function showResult() {
   document.getElementById('priceRange').textContent =
     `${p.low.toLocaleString()}万円 〜 ${p.high.toLocaleString()}万円`;
   document.getElementById('priceNote').textContent =
-    `${data.pref}の${data.type}（参考値・誤差±25〜35%）※REINFOLIB API連携予定`;
+    `${data.pref}${data.city ? data.city : ""}の${data.type}（参考値・誤差±25〜35%）※REINFOLIB API連携予定`;
 
   const comment = getComment();
   const rv = Math.round(p.mid * 0.5 / 100) * 100;
@@ -907,7 +964,7 @@ function generatePDF() {
   <h2>📋 入力情報</h2>
   <div class="info-grid">
     <div class="info-cell head"><div class="info-label">親御さんの年齢</div><div class="info-val">${data.age || '未入力'}</div></div>
-    <div class="info-cell head"><div class="info-label">実家の所在地</div><div class="info-val">${data.pref || '未入力'}</div></div>
+    <div class="info-cell head"><div class="info-label">実家の所在地</div><div class="info-val">${data.pref || ''}${data.city ? ' ' + data.city : '' || '未入力'}</div></div>
     <div class="info-cell head"><div class="info-label">建物の種類</div><div class="info-val">${data.type || '未入力'}</div></div>
     <div class="info-cell head"><div class="info-label">現在の状況</div><div class="info-val">${statusLabel}</div></div>
     <div class="info-cell"><div class="info-label">築年数</div><div class="info-val">${data.age2 || '未入力'}</div></div>
@@ -1069,7 +1126,10 @@ function restart() {
   document.getElementById('resultSection').style.display = 'none';
   document.getElementById('detailPrompt').style.display = 'block';
   document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('pref').value = '';
+  const zi = document.getElementById('zipInput'); if(zi) zi.value='';
+  const pd = document.getElementById('prefDisplay'); if(pd) pd.value='';
+  const cd = document.getElementById('cityDisplay'); if(cd) cd.value='';
+  const zs = document.getElementById('zipStatus'); if(zs) zs.textContent='';
   ['dot1','dot2','dot3'].forEach(id=>{
     const d = document.getElementById(id);
     d.classList.remove('active','done');
