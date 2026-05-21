@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実家どうするナビ｜親の実家・老後・相続を家族で整理する</title>
+<meta name="description" content="3分でわかる、親の実家の選択肢。売却・賃貸・リバースモーゲージ・そのままを中立比較。家族会議シート無料ダウンロード。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1a7a5e;
+  --green-light: #e8f5f0;
+  --green-mid: #2d9e7a;
+  --amber: #e07b39;
+  --amber-light: #fdf0e8;
+  --gray: #5a5a5a;
+  --gray-light: #f5f5f3;
+  --border: #e0ddd8;
+  --text: #1a1a1a;
+  --text-sub: #6b6b6b;
+  --white: #ffffff;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: #fafaf8;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--green);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.logo-text { font-size: 17px; font-weight: 700; color: var(--green); }
+.logo-sub { font-size: 11px; color: var(--text-sub); margin-top: -2px; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(160deg, #1a7a5e 0%, #2d9e7a 60%, #e8f5f0 100%);
+  color: white;
+  padding: 56px 20px 48px;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  margin-bottom: 18px;
+  letter-spacing: 0.05em;
+}
+.hero h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 5vw, 32px);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.hero-sub {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+.hero-btn {
+  display: inline-block;
+  background: var(--white);
+  color: var(--green);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.hero-note { font-size: 12px; opacity: 0.75; margin-top: 12px; }
+
+/* TRUST */
+.trust {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.trust-item { font-size: 13px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
+.trust-icon { font-size: 16px; }
+
+/* CONTAINER */
+.container { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+
+/* SECTION */
+.section { padding: 40px 0; }
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  color: var(--green);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.section-sub { font-size: 14px; color: var(--text-sub); text-align: center; margin-bottom: 28px; }
+
+/* STEP CARD */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+.step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s, color 0.3s;
+}
+.step-dot.active { background: var(--green); color: white; }
+.step-dot.done { background: var(--green-mid); color: white; }
+.step-line {
+  height: 2px;
+  width: 40px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+.step-line.done { background: var(--green-mid); }
+
+/* FORM CARD */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.form-card h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-num {
+  background: var(--green);
+  color: white;
+  border-radius: 6px;
+  padding: 2px 9px;
+  font-size: 12px;
+}
+
+/* SELECT BUTTONS */
+.choice-group { margin-bottom: 20px; }
+.choice-label { font-size: 14px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
+.choice-label .required { color: var(--amber); font-size: 11px; margin-left: 6px; }
+.choice-grid { display: grid; gap: 8px; }
+.choice-grid.col2 { grid-template-columns: 1fr 1fr; }
+.choice-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
+.choice-btn {
+  padding: 12px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  color: var(--text);
+  line-height: 1.4;
+}
+.choice-btn:hover { border-color: var(--green); background: var(--green-light); }
+.choice-btn.selected {
+  border-color: var(--green);
+  background: var(--green-light);
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* SELECT BOX */
+.select-wrap { position: relative; }
+.select-wrap select {
+  width: 100%;
+  padding: 12px 36px 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  appearance: none;
+  cursor: pointer;
+}
+.select-wrap::after {
+  content: '▾';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-sub);
+  pointer-events: none;
+}
+
+/* NEXT BTN */
+.next-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 8px;
+}
+.next-btn:hover { background: var(--green-mid); transform: translateY(-1px); }
+.next-btn:disabled { background: var(--border); cursor: not-allowed; transform: none; }
+
+/* RESULT */
+.result-section { display: none; }
+.result-header {
+  background: var(--green-light);
+  border: 1px solid #b8ddd0;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.result-header h2 { font-size: 15px; color: var(--green); font-weight: 700; margin-bottom: 8px; }
+.price-range { font-family: 'Noto Serif JP', serif; font-size: 24px; font-weight: 700; color: var(--text); }
+.price-note { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+
+/* RESULT CARDS */
+.result-grid { display: grid; gap: 12px; margin-bottom: 20px; }
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.result-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.result-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.icon-sell { background: #fde8d8; }
+.icon-rent { background: #ddeeff; }
+.icon-stay { background: #f0f0f0; }
+.icon-rev  { background: #ede8fd; }
+.result-card-title { font-size: 15px; font-weight: 700; }
+.result-card-subtitle { font-size: 12px; color: var(--text-sub); }
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--gray-light);
+  align-items: center;
+}
+.result-row:last-child { border-bottom: none; }
+.result-row-label { color: var(--text-sub); }
+.result-row-value { font-weight: 500; }
+.result-comment {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.risk-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.risk-high { background: #fde8e8; color: #c0392b; }
+.risk-mid  { background: #fdf0e8; color: #c07030; }
+.risk-low  { background: #e8f5f0; color: #1a7a5e; }
+
+/* DISCLAIMER */
+.disclaimer {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* DETAIL STEP */
+.detail-section { display: none; }
+.detail-toggle-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--green);
+  border-radius: 50px;
+  color: var(--green);
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+.detail-toggle-btn:hover { background: var(--green-light); }
+
+/* PDF SECTION */
+.pdf-section {
+  background: var(--amber-light);
+  border: 1px solid #f0c8a0;
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.pdf-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.pdf-section p { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; line-height: 1.7; }
+.pdf-btn {
+  display: inline-block;
+  background: var(--amber);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.pdf-btn:hover { background: #c56a2a; transform: translateY(-1px); }
+
+/* EXPERT */
+.expert-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.expert-section h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.expert-section p { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; }
+.expert-btn {
+  display: inline-block;
+  background: var(--green);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.expert-btn:hover { background: var(--green-mid); }
+
+/* RESTART */
+.restart-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-sub);
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+.restart-btn:hover { background: var(--gray-light); }
+
+/* FOOTER */
+footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 2;
+}
+
+/* HIDDEN */
+.hidden { display: none !important; }
+
+/* ANIMATE */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-mark">🏠</div>
+  <div>
+    <div class="logo-text">実家どうするナビ</div>
+    <div class="logo-sub">親の実家・老後・相続を家族で整理する</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📋 登録不要・無料で使える</div>
+  <h1>親の実家、<br>そのままにしていませんか？</h1>
+  <p class="hero-sub">
+    売却・賃貸・リバースモーゲージ・住み続ける<br>
+    4つの選択肢を3分で中立比較します
+  </p>
+  <a href="#shindan" class="hero-btn">▶ 今すぐ診断スタート</a>
+  <div class="hero-note">個人情報の入力は不要です</div>
+</div>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="trust-item"><span class="trust-icon">🔒</span>個人情報不要</div>
+  <div class="trust-item"><span class="trust-icon">⚖️</span>中立・公平な比較</div>
+  <div class="trust-item"><span class="trust-icon">📄</span>家族会議シート無料</div>
+  <div class="trust-item"><span class="trust-icon">🏛️</span>国交省データ参照</div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="container">
+  <div class="section" id="shindan">
+
+    <!-- STEP INDICATOR -->
+    <div class="step-indicator" id="stepIndicator">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-dot" id="dot3">結果</div>
+    </div>
+
+    <!-- STEP1 -->
+    <div id="step1">
+      <div class="form-card fade-in">
+        <h2><span class="step-num">STEP 1</span>基本情報を入力（約30秒）</h2>
+
+        <div class="choice-group">
+          <div class="choice-label">親御さんの年齢は？<span class="required">必須</span></div>
+          <div class="choice-grid col3">
+            <button class="choice-btn" onclick="select(this,'age','70前半')">70代前半</button>
+            <button class="choice-btn" onclick="select(this,'age','70後半')">70代後半</button>
+            <button class="choice-btn" onclick="select(this,'age','80以上')">80代以上</button>
+          </div>
+        </div>
+
+        <div class="choice-group">
+          <div class="choice-label">実家の所在地<span class="required">必須</span></div>
+          <div class="select-wrap">
+            <select id="pref" onchange="data.pref=this.value">
+              <option value="">都道府県を選択</option>
+              <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option>
+              <option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option>
+              <option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option><option>岐阜県</option>
+              <option>静岡県</option><option>愛知県</option><option>三重県</option><option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
+              <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option>
+              <option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option><option>佐賀県</option><option>長崎県</option>
+              <option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="choice-group">
+          <div class="choice-label">建物の種類<span class="required">必須</span></div>
+          <div class="choice-grid col2">
+            <button class="choice-btn" onclick="select(this,'type','戸建')">🏡 一戸建て</button>
+            <button class="choice-btn" onclick="select(this,'type','マンション')">🏢 マンション</button>
+          </div>
+        </div>
+
+        <div class="choice-group">
+          <div class="choice-label">現在の実家の状況<span class="required">必須</span></div>
+          <div class="choice-grid col2">
+            <button class="choice-btn" onclick="select(this,'status','独居')">一人で暮らしている</button>
+            <button class="choice-btn" onclick="select(this,'status','夫婦')">夫婦で暮らしている</button>
+            <button class="choice-btn" onclick="select(this,'status','施設')">施設に入っている</button>
+            <button class="choice-btn" onclick="select(this,'status','空き家')">すでに空き家</button>
+          </div>
+        </div>
+
+        <button class="next-btn" onclick="goStep2()" id="step1btn">結果をざっくり見る →</button>
+      </div>
+    </div>
+
+    <!-- STEP2（任意・詳細） -->
+    <div id="step2" class="hidden">
+      <div class="form-card fade-in">
+        <h2><span class="step-num">STEP 2</span>詳しく入力（任意・精度アップ）</h2>
+
+        <div class="choice-group">
+          <div class="choice-label">築年数の目安</div>
+          <div class="choice-grid col2">
+            <button class="choice-btn" onclick="select(this,'age2','20年以内')">20年以内</button>
+            <button class="choice-btn" onclick="select(this,'age2','21-30年')">21〜30年</button>
+            <button class="choice-btn" onclick="select(this,'age2','31-40年')">31〜40年</button>
+            <button class="choice-btn" onclick="select(this,'age2','41年以上')">41年以上</button>
+          </div>
+        </div>
+
+        <div class="choice-group">
+          <div class="choice-label">お子さん（相続人）の人数</div>
+          <div class="choice-grid col3">
+            <button class="choice-btn" onclick="select(this,'heirs','1人')">1人</button>
+            <button class="choice-btn" onclick="select(this,'heirs','2人')">2人</button>
+            <button class="choice-btn" onclick="select(this,'heirs','3人以上')">3人以上</button>
+          </div>
+        </div>
+
+        <div class="choice-group">
+          <div class="choice-label">親御さんの年金（月額の目安）</div>
+          <div class="choice-grid col3">
+            <button class="choice-btn" onclick="select(this,'pension','少ない')">10万円未満</button>
+            <button class="choice-btn" onclick="select(this,'pension','普通')">10〜15万円</button>
+            <button class="choice-btn" onclick="select(this,'pension','多め')">15万円以上</button>
+          </div>
+        </div>
+
+        <button class="next-btn" onclick="showResult()">4つの選択肢を比較する →</button>
+        <button class="choice-btn" onclick="showResult()" style="margin-top:10px;width:100%;color:var(--text-sub);">スキップして結果を見る</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultSection" class="result-section">
+
+      <!-- 価格レンジ -->
+      <div class="result-header fade-in">
+        <h2>🏠 実家の概算価格レンジ（参考値）</h2>
+        <div class="price-range" id="priceRange">—</div>
+        <div class="price-note" id="priceNote">国土交通省の公開データに基づく概算です（誤差±25〜35%）</div>
+      </div>
+
+      <!-- 4パターン比較 -->
+      <div class="result-grid" id="resultGrid"></div>
+
+      <!-- 免責 -->
+      <div class="disclaimer">
+        ⚠️ <strong>ご注意（参考値について）</strong><br>
+        本サービスで表示される金額および診断結果は、国土交通省の公開データおよび入力された条件に基づき機械的に算出された「簡易的な試算（参考値）」です。実際の売却価格・賃貸収入・融資額を保証するものではありません。当サイトは不動産の仲介行為、特定の金融商品の勧誘、および個別の法的・税務的判断を行うものではありません。最終的なご判断にあたっては、必ず専門家（不動産会社・FP・税理士・弁護士等）にご相談ください。
+      </div>
+
+      <!-- 詳細入力へ -->
+      <div id="detailPrompt">
+        <button class="detail-toggle-btn" onclick="goStep2FromResult()">
+          📊 詳細情報を入力してより正確に見る
+        </button>
+      </div>
+
+      <!-- 家族会議シートPDF -->
+      <div class="pdf-section fade-in">
+        <h3>📄 家族会議シートを無料ダウンロード</h3>
+        <p>
+          この診断結果をもとに、親・兄弟と話し合うための<br>
+          「家族会議シート」をPDFで出力できます。<br>
+          課題・選択肢・専門家への質問をまとめて整理。
+        </p>
+        <button class="pdf-btn" onclick="generatePDF()">📄 PDFをダウンロードする（無料）</button>
+      </div>
+
+      <!-- 専門家相談 -->
+      <div class="expert-section">
+        <h3>🤝 無料で専門家に相談する</h3>
+        <p>より詳しく知りたい方は、提携する不動産会社・FP・金融機関にご相談いただけます。<br>
+        <small style="color:var(--text-sub)">※以降の手続きは提携先の規約が適用されます</small></p>
+        <button class="expert-btn" onclick="alert('現在準備中です。近日公開予定！')">専門家に無料相談する →</button>
+      </div>
+
+      <button class="restart-btn" onclick="restart()">🔄 最初からやり直す</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-weight:700;font-size:14px;margin-bottom:8px;">実家どうするナビ</div>
+  <div>本サービスは情報提供を目的としており、不動産売買・金融商品の勧誘・法的判断を行うものではありません。</div>
+  <div style="margin-top:8px;">© 2026 実家どうするナビ</div>
+</footer>
+
+<script>
+// データ保持
+const data = {
+  age: '', pref: '', type: '', status: '',
+  age2: '', heirs: '', pension: ''
+};
+
+// 選択ボタン
+function select(btn, key, val) {
+  const group = btn.closest('.choice-grid');
+  group.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  data[key] = val;
+}
+
+// STEP1 → STEP2
+function goStep2() {
+  if (!data.age || !data.pref || !data.type || !data.status) {
+    alert('すべての項目を選択してください');
+    return;
+  }
+  document.getElementById('step1').classList.add('hidden');
+  document.getElementById('step2').classList.remove('hidden');
+  document.getElementById('dot1').classList.remove('active');
+  document.getElementById('dot1').classList.add('done');
+  document.getElementById('line1').classList.add('done');
+  document.getElementById('dot2').classList.add('active');
+  window.scrollTo({top: document.getElementById('shindan').offsetTop - 60, behavior: 'smooth'});
+}
+
+// 結果から詳細へ
+function goStep2FromResult() {
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('step2').classList.remove('hidden');
+  document.getElementById('detailPrompt').style.display = 'none';
+  window.scrollTo({top: document.getElementById('shindan').offsetTop - 60, behavior: 'smooth'});
+}
+
+// 価格レンジ計算（ダミー＋地域係数）
+function calcPrice() {
+  const prefCoef = {
+    '東京都':1.8,'神奈川県':1.4,'大阪府':1.2,'愛知県':1.1,'千葉県':1.1,'埼玉県':1.0,
+    '京都府':1.1,'兵庫県':1.0,'福岡県':0.9,'北海道':0.7,'沖縄県':0.8
+  };
+  const coef = prefCoef[data.pref] || 0.85;
+  const base = data.type === 'マンション' ? 2500 : 2000;
+  const ageCoef = {'':-0,'20年以内':1.3,'21-30年':1.0,'31-40年':0.75,'41年以上':0.55}[data.age2||''] ;
+  const ac = ageCoef || 1.0;
+  const mid = Math.round(base * coef * ac / 100) * 100;
+  const low = Math.round(mid * 0.75 / 100) * 100;
+  const high = Math.round(mid * 1.3 / 100) * 100;
+  return { low, mid, high };
+}
+
+// リスクコメント生成
+function getComment() {
+  if (data.status === '施設' || data.status === '空き家') {
+    return '空き家リスクが特に高い状況です。売却・リバースモーゲージを検討するタイミングの可能性があります。';
+  }
+  if (data.age === '80以上' && data.status === '独居') {
+    return '独居高齢者の場合、将来の空き家リスクを早めに整理しておくことが重要です。';
+  }
+  if (data.heirs === '3人以上') {
+    return '相続人が複数いる場合、売却・賃貸・そのまま、どれを選ぶかで複雑になりやすいです。専門家への相談をおすすめします。';
+  }
+  if (data.pension === '少ない') {
+    return '年金収入が限られる場合、売却一時金やリバースモーゲージで月間生活費を補う選択肢も検討できます。';
+  }
+  return '親御さんの状況に合わせて、4つの選択肢の特徴をご確認ください。';
+}
+
+// 結果表示
+function showResult() {
+  document.getElementById('step1').classList.add('hidden');
+  document.getElementById('step2').classList.add('hidden');
+
+  document.getElementById('dot2').classList.remove('active');
+  document.getElementById('dot2').classList.add('done');
+  document.getElementById('line2').classList.add('done');
+  document.getElementById('dot3').classList.add('active');
+
+  const p = calcPrice();
+  document.getElementById('priceRange').textContent =
+    `${p.low.toLocaleString()}万円 〜 ${p.high.toLocaleString()}万円`;
+  document.getElementById('priceNote').textContent =
+    `${data.pref}の${data.type}（参考値・誤差±25〜35%）※REINFOLIB API連携予定`;
+
+  const comment = getComment();
+  const rv = Math.round(p.mid * 0.5 / 100) * 100;
+  const rent = data.type === 'マンション' ? Math.round(p.mid * 0.004) : Math.round(p.mid * 0.003);
+  const revM = Math.round(rv * 0.006);
+
+  const cards = [
+    {
+      icon:'💴', iconClass:'icon-sell', title:'売却', sub:'まとまった資金を確保',
+      rows:[
+        {label:'推定手取り', value:`${Math.round(p.mid*0.9/100)*100}万円前後`},
+        {label:'空き家リスク', value:'<span class="risk-badge risk-low">解消</span>'},
+        {label:'管理の手間', value:'<span class="risk-badge risk-low">なくなる</span>'},
+      ],
+      comment:`売却を選んだ場合、まとまった資金を確保しやすい一方で、親御さんの住まいの確保や家族間の合意形成が重要になります。`
+    },
+    {
+      icon:'🔑', iconClass:'icon-rent', title:'賃貸に出す', sub:'毎月の収入を確保',
+      rows:[
+        {label:'想定賃料', value:`月${rent}〜${rent+2}万円`},
+        {label:'空き家リスク', value:'<span class="risk-badge risk-mid">軽減</span>'},
+        {label:'管理の手間', value:'<span class="risk-badge risk-mid">必要</span>'},
+      ],
+      comment:`住み続けながら一部を貸す、または空き家を活用して家賃収入を得る選択肢です。管理・トラブル・空室リスクも考慮が必要です。`
+    },
+    {
+      icon:'🏠', iconClass:'icon-stay', title:'住み続ける', sub:'現状を維持する',
+      rows:[
+        {label:'一時金', value:'なし（現状維持）'},
+        {label:'空き家リスク', value:'<span class="risk-badge risk-high">将来高まる</span>'},
+        {label:'管理の手間', value:'<span class="risk-badge risk-mid">継続</span>'},
+      ],
+      comment:`現状を維持する安心感がある一方で、将来の空き家・介護・施設入所との兼ね合いを早めに整理しておくことが重要です。`
+    },
+    {
+      icon:'📊', iconClass:'icon-rev', title:'リバースモーゲージ', sub:'住みながら資金化',
+      rows:[
+        {label:'月額受取目安', value:`月${revM}〜${revM+3}万円`},
+        {label:'空き家リスク', value:'<span class="risk-badge risk-low">解消しない</span>'},
+        {label:'相続への影響', value:'<span class="risk-badge risk-mid">残債あり</span>'},
+      ],
+      comment:`自宅に住み続けたい場合の選択肢の一つです。ただし金利変動・担保評価・相続人への影響を必ず確認する必要があります。`
+    }
+  ];
+
+  const grid = document.getElementById('resultGrid');
+  grid.innerHTML = cards.map(c => `
+    <div class="result-card fade-in">
+      <div class="result-card-head">
+        <div class="result-icon ${c.iconClass}">${c.icon}</div>
+        <div>
+          <div class="result-card-title">${c.title}</div>
+          <div class="result-card-subtitle">${c.sub}</div>
+        </div>
+      </div>
+      ${c.rows.map(r=>`
+        <div class="result-row">
+          <div class="result-row-label">${r.label}</div>
+          <div class="result-row-value">${r.value}</div>
+        </div>
+      `).join('')}
+      <div class="result-comment">${c.comment}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('resultSection').style.display = 'block';
+  window.scrollTo({top: document.getElementById('shindan').offsetTop - 60, behavior: 'smooth'});
+}
+
+// PDF生成（家族会議シート）
+function generatePDF() {
+  const p = calcPrice();
+  const win = window.open('', '_blank');
+  const statusLabel = {独居:'一人暮らし',夫婦:'夫婦で居住',施設:'施設入所中',空き家:'空き家'}[data.status] || '';
+  win.document.write(`<!DOCTYPE html><html lang="ja"><head>
+  <meta charset="UTF-8">
+  <title>家族会議シート｜実家どうするナビ</title>
+  <style>
+    body{font-family:'Noto Sans JP',sans-serif;max-width:700px;margin:0 auto;padding:40px 32px;color:#1a1a1a;font-size:14px;line-height:1.8;}
+    h1{font-size:22px;color:#1a7a5e;border-bottom:3px solid #1a7a5e;padding-bottom:8px;margin-bottom:8px;}
+    .sub{color:#6b6b6b;font-size:13px;margin-bottom:28px;}
+    h2{font-size:16px;color:#1a7a5e;margin:24px 0 10px;border-left:4px solid #1a7a5e;padding-left:10px;}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;background:#f5f5f3;border-radius:8px;padding:16px;margin-bottom:8px;}
+    .info-row{display:flex;flex-direction:column;}
+    .info-label{font-size:11px;color:#6b6b6b;}
+    .info-val{font-weight:700;}
+    .price{font-size:22px;font-weight:700;color:#1a1a1a;margin:8px 0;}
+    table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+    th{background:#1a7a5e;color:white;padding:8px 10px;font-size:13px;text-align:left;}
+    td{padding:8px 10px;border-bottom:1px solid #e0ddd8;font-size:13px;vertical-align:top;}
+    .check-list{list-style:none;padding:0;}
+    .check-list li{padding:8px 0;border-bottom:1px solid #e0ddd8;}
+    .check-list li::before{content:'□ ';color:#1a7a5e;font-weight:700;}
+    .note{background:#fdf0e8;border-radius:6px;padding:12px 14px;font-size:12px;color:#6b6b6b;margin-top:24px;}
+    @media print{body{padding:20px;}}
+  </style>
+  </head><body>
+  <h1>家族会議シート</h1>
+  <div class="sub">実家どうするナビ｜${new Date().toLocaleDateString('ja-JP')} 作成</div>
+
+  <h2>📋 入力情報</h2>
+  <div class="info-grid">
+    <div class="info-row"><div class="info-label">親御さんの年齢</div><div class="info-val">${data.age || '未入力'}</div></div>
+    <div class="info-row"><div class="info-label">実家の所在地</div><div class="info-val">${data.pref || '未入力'}</div></div>
+    <div class="info-row"><div class="info-label">建物の種類</div><div class="info-val">${data.type || '未入力'}</div></div>
+    <div class="info-row"><div class="info-label">現在の状況</div><div class="info-val">${statusLabel}</div></div>
+    <div class="info-row"><div class="info-label">築年数</div><div class="info-val">${data.age2 || '未入力'}</div></div>
+    <div class="info-row"><div class="info-label">相続人の人数</div><div class="info-val">${data.heirs || '未入力'}</div></div>
+    <div class="info-row"><div class="info-label">年金月額</div><div class="info-val">${data.pension === '少ない' ? '10万円未満' : data.pension === '普通' ? '10〜15万円' : data.pension === '多め' ? '15万円以上' : '未入力'}</div></div>
+  </div>
+
+  <h2>🏠 実家の概算価格レンジ</h2>
+  <div class="price">${p.low.toLocaleString()}万円 〜 ${p.high.toLocaleString()}万円</div>
+  <div style="font-size:12px;color:#6b6b6b;">※国土交通省公開データに基づく概算（誤差±25〜35%）</div>
+
+  <h2>📊 4つの選択肢の特徴</h2>
+  <table>
+    <tr><th>選択肢</th><th>特徴・メリット</th><th>注意点・リスク</th></tr>
+    <tr><td><strong>売却</strong></td><td>まとまった資金化・管理不要</td><td>親の住まい確保・家族合意</td></tr>
+    <tr><td><strong>賃貸</strong></td><td>毎月の収入・資産保有継続</td><td>管理・トラブル・空室リスク</td></tr>
+    <tr><td><strong>住み続ける</strong></td><td>現状維持・安心感</td><td>将来の空き家・介護との兼ね合い</td></tr>
+    <tr><td><strong>リバースモーゲージ</strong></td><td>住みながら資金化</td><td>金利・残債・相続への影響</td></tr>
+  </table>
+
+  <h2>💬 家族で話し合うポイント</h2>
+  <ul class="check-list">
+    <li>親は今の住まいをどうしたいと思っているか</li>
+    <li>子ども・兄弟それぞれの希望・意見は何か</li>
+    <li>介護・施設入所の可能性はいつ頃か</li>
+    <li>相続の方針（資産を残したい・残さなくてもよい）</li>
+    <li>空き家になった場合の管理・維持費は誰が担うか</li>
+    <li>売却する場合、親の引っ越し先はどうするか</li>
+  </ul>
+
+  <h2>❓ 専門家に確認すべき質問</h2>
+  <ul class="check-list">
+    <li>実際の売却価格・買取価格の査定</li>
+    <li>リバースモーゲージの適用条件と月額</li>
+    <li>売却した場合の税金（譲渡所得税）</li>
+    <li>相続時の名義変更・手続き</li>
+    <li>賃貸に出す場合の管理会社の選び方</li>
+  </ul>
+
+  <div class="note">
+    ⚠️ 本シートの金額はすべて参考値です。実際の取引価格・融資条件は市場・個別事情により異なります。
+    最終判断は必ず専門家（不動産会社・FP・税理士・弁護士等）にご相談ください。<br>
+    本サービスは宅建業法・金融商品取引法上の仲介・助言行為を行いません。
+  </div>
+  <script>window.print();<\/script>
+  </body></html>`);
+  win.document.close();
+}
+
+// リスタート
+function restart() {
+  data.age=''; data.pref=''; data.type=''; data.status='';
+  data.age2=''; data.heirs=''; data.pension='';
+  document.getElementById('step1').classList.remove('hidden');
+  document.getElementById('step2').classList.add('hidden');
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('detailPrompt').style.display = 'block';
+  document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('pref').value = '';
+  ['dot1','dot2','dot3'].forEach(id=>{
+    const d = document.getElementById(id);
+    d.classList.remove('active','done');
+  });
+  ['line1','line2'].forEach(id=>document.getElementById(id).classList.remove('done'));
+  document.getElementById('dot1').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
