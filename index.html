@@ -788,85 +788,273 @@ function showResult() {
   window.scrollTo({top: document.getElementById('shindan').offsetTop - 60, behavior: 'smooth'});
 }
 
-// PDF生成（家族会議シート）
+// PDF生成（家族会議シート・強化版）
 function generatePDF() {
   const p = calcPrice();
   const win = window.open('', '_blank');
-  const statusLabel = {独居:'一人暮らし',夫婦:'夫婦で居住',施設:'施設入所中',空き家:'空き家'}[data.status] || '';
+  const statusLabel = {独居:'一人暮らし',夫婦:'夫婦で居住',施設:'施設入所中',空き家:'空き家'}[data.status] || '未入力';
+  const pensionLabel = {少ない:'10万円未満',普通:'10〜15万円',多め:'15万円以上'}[data.pension] || '未入力';
+
+  // 状況別アドバイス
+  const situationAdvice = (() => {
+    if (data.status === '施設' || data.status === '空き家')
+      return '既に施設入所または空き家の状態です。管理コスト・固定資産税・老朽化リスクが年々増加します。売却・賃貸など出口の検討を優先されることをおすすめします。';
+    if (data.age === '80以上' && data.status === '独居')
+      return '80代以上の独居は、急な入院・施設入所により実家が空き家になるリスクが高い状況です。早めに家族で方針を決めておくことが重要です。';
+    if (data.heirs === '3人以上')
+      return '相続人が3人以上いる場合、売却・賃貸・相続いずれの選択肢も全員の合意が必要です。遺産分割協議を円滑に進めるためにも、今のうちから方針を共有しておきましょう。';
+    if (data.pension === '少ない')
+      return '年金収入が少ない場合、実家を活用した資金確保（売却一時金・リバースモーゲージ）が生活の安定につながる可能性があります。FPへの相談をおすすめします。';
+    return '今すぐ動く必要はありませんが、親御さんが元気なうちに家族で方針を話し合っておくことで、将来の選択肢が広がります。';
+  })();
+
+  // 選択肢ごとの詳細
+  const rv = Math.round(p.mid * 0.5 / 100) * 100;
+  const rent = data.type === 'マンション' ? Math.round(p.mid * 0.004) : Math.round(p.mid * 0.003);
+  const revM = Math.round(rv * 0.006);
+
   win.document.write(`<!DOCTYPE html><html lang="ja"><head>
   <meta charset="UTF-8">
   <title>家族会議シート｜実家どうするナビ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    body{font-family:'Noto Sans JP',sans-serif;max-width:700px;margin:0 auto;padding:40px 32px;color:#1a1a1a;font-size:14px;line-height:1.8;}
-    h1{font-size:22px;color:#1a7a5e;border-bottom:3px solid #1a7a5e;padding-bottom:8px;margin-bottom:8px;}
-    .sub{color:#6b6b6b;font-size:13px;margin-bottom:28px;}
-    h2{font-size:16px;color:#1a7a5e;margin:24px 0 10px;border-left:4px solid #1a7a5e;padding-left:10px;}
-    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;background:#f5f5f3;border-radius:8px;padding:16px;margin-bottom:8px;}
-    .info-row{display:flex;flex-direction:column;}
-    .info-label{font-size:11px;color:#6b6b6b;}
-    .info-val{font-weight:700;}
-    .price{font-size:22px;font-weight:700;color:#1a1a1a;margin:8px 0;}
-    table{width:100%;border-collapse:collapse;margin-bottom:8px;}
-    th{background:#1a7a5e;color:white;padding:8px 10px;font-size:13px;text-align:left;}
-    td{padding:8px 10px;border-bottom:1px solid #e0ddd8;font-size:13px;vertical-align:top;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Noto Sans JP',sans-serif;max-width:720px;margin:0 auto;padding:36px 32px;color:#1a1a1a;font-size:13px;line-height:1.85;background:#fff;}
+
+    /* ヘッダー */
+    .doc-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #1a7a5e;padding-bottom:12px;margin-bottom:6px;}
+    .doc-title{font-size:24px;font-weight:700;color:#1a7a5e;}
+    .doc-meta{font-size:11px;color:#888;text-align:right;line-height:1.8;}
+
+    /* セクション */
+    h2{font-size:14px;font-weight:700;color:#fff;background:#1a7a5e;padding:6px 12px;margin:20px 0 10px;border-radius:4px;}
+    h3{font-size:13px;font-weight:700;color:#1a7a5e;margin:14px 0 6px;border-left:3px solid #1a7a5e;padding-left:8px;}
+
+    /* 入力情報グリッド */
+    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0ddd8;border:1px solid #e0ddd8;border-radius:6px;overflow:hidden;margin-bottom:4px;}
+    .info-cell{background:#fff;padding:8px 10px;}
+    .info-cell.head{background:#f5f5f3;}
+    .info-label{font-size:10px;color:#888;margin-bottom:2px;}
+    .info-val{font-weight:700;font-size:13px;}
+
+    /* 価格レンジ */
+    .price-box{background:#e8f5f0;border:1px solid #b8ddd0;border-radius:8px;padding:14px 18px;margin-bottom:4px;display:flex;align-items:center;gap:24px;}
+    .price-main{font-size:22px;font-weight:700;color:#1a1a1a;}
+    .price-sub{font-size:11px;color:#666;line-height:1.6;}
+
+    /* アドバイスボックス */
+    .advice-box{background:#fdf0e8;border-left:4px solid #e07b39;border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:#4a3010;line-height:1.7;margin-bottom:4px;}
+
+    /* 4択比較テーブル */
+    .compare-table{width:100%;border-collapse:collapse;margin-bottom:4px;font-size:12px;}
+    .compare-table th{background:#1a7a5e;color:#fff;padding:7px 8px;text-align:left;font-weight:500;}
+    .compare-table td{padding:7px 8px;border-bottom:1px solid #e8e8e8;vertical-align:top;}
+    .compare-table tr:nth-child(even) td{background:#fafaf8;}
+    .opt-name{font-weight:700;font-size:13px;}
+    .opt-amount{font-size:12px;color:#1a7a5e;font-weight:700;}
+    .tag-good{display:inline-block;background:#e8f5f0;color:#1a7a5e;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;margin-right:2px;}
+    .tag-warn{display:inline-block;background:#fdf0e8;color:#c07030;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;margin-right:2px;}
+    .tag-risk{display:inline-block;background:#fde8e8;color:#c03030;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;margin-right:2px;}
+
+    /* 話し合いチェックリスト */
+    .check-section{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
     .check-list{list-style:none;padding:0;}
-    .check-list li{padding:8px 0;border-bottom:1px solid #e0ddd8;}
-    .check-list li::before{content:'□ ';color:#1a7a5e;font-weight:700;}
-    .note{background:#fdf0e8;border-radius:6px;padding:12px 14px;font-size:12px;color:#6b6b6b;margin-top:24px;}
-    @media print{body{padding:20px;}}
+    .check-list li{padding:6px 0;border-bottom:1px solid #efefef;font-size:12px;display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+    .check-box{width:14px;height:14px;border:1.5px solid #1a7a5e;border-radius:2px;flex-shrink:0;margin-top:1px;}
+
+    /* 専門家質問リスト */
+    .qa-table{width:100%;border-collapse:collapse;font-size:12px;}
+    .qa-table th{background:#f5f5f3;padding:6px 10px;text-align:left;border:1px solid #e0ddd8;font-weight:500;color:#444;}
+    .qa-table td{padding:6px 10px;border:1px solid #e0ddd8;vertical-align:top;line-height:1.6;}
+    .qa-table .q-col{width:42%;}
+    .qa-table .a-col{background:#fafaf8;}
+
+    /* 記入欄 */
+    .memo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .memo-box{border:1px solid #e0ddd8;border-radius:6px;padding:10px 12px;}
+    .memo-label{font-size:11px;color:#888;margin-bottom:6px;font-weight:500;}
+    .memo-lines{border-bottom:1px solid #ddd;height:18px;margin-bottom:4px;}
+
+    /* 次のステップ */
+    .step-list{list-style:none;padding:0;counter-reset:step;}
+    .step-list li{counter-increment:step;padding:8px 0 8px 36px;border-bottom:1px solid #efefef;position:relative;font-size:12px;line-height:1.6;}
+    .step-list li::before{content:counter(step);position:absolute;left:0;top:8px;width:22px;height:22px;background:#1a7a5e;color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:22px;}
+
+    /* フッター */
+    .footer-note{background:#f5f5f3;border-radius:6px;padding:10px 14px;font-size:10px;color:#888;line-height:1.7;margin-top:20px;}
+
+    @media print{
+      body{padding:16px 20px;font-size:12px;}
+      h2{font-size:13px;}
+      .doc-title{font-size:20px;}
+      .price-main{font-size:18px;}
+    }
   </style>
   </head><body>
-  <h1>家族会議シート</h1>
-  <div class="sub">実家どうするナビ｜${new Date().toLocaleDateString('ja-JP')} 作成</div>
+
+  <div class="doc-header">
+    <div>
+      <div class="doc-title">🏠 家族会議シート</div>
+      <div style="font-size:12px;color:#1a7a5e;margin-top:2px;">親の実家・老後・相続を家族で整理する</div>
+    </div>
+    <div class="doc-meta">
+      実家どうするナビ<br>
+      作成日：${new Date().toLocaleDateString('ja-JP')}<br>
+      jikka-navi.net
+    </div>
+  </div>
 
   <h2>📋 入力情報</h2>
   <div class="info-grid">
-    <div class="info-row"><div class="info-label">親御さんの年齢</div><div class="info-val">${data.age || '未入力'}</div></div>
-    <div class="info-row"><div class="info-label">実家の所在地</div><div class="info-val">${data.pref || '未入力'}</div></div>
-    <div class="info-row"><div class="info-label">建物の種類</div><div class="info-val">${data.type || '未入力'}</div></div>
-    <div class="info-row"><div class="info-label">現在の状況</div><div class="info-val">${statusLabel}</div></div>
-    <div class="info-row"><div class="info-label">築年数</div><div class="info-val">${data.age2 || '未入力'}</div></div>
-    <div class="info-row"><div class="info-label">相続人の人数</div><div class="info-val">${data.heirs || '未入力'}</div></div>
-    <div class="info-row"><div class="info-label">年金月額</div><div class="info-val">${data.pension === '少ない' ? '10万円未満' : data.pension === '普通' ? '10〜15万円' : data.pension === '多め' ? '15万円以上' : '未入力'}</div></div>
+    <div class="info-cell head"><div class="info-label">親御さんの年齢</div><div class="info-val">${data.age || '未入力'}</div></div>
+    <div class="info-cell head"><div class="info-label">実家の所在地</div><div class="info-val">${data.pref || '未入力'}</div></div>
+    <div class="info-cell head"><div class="info-label">建物の種類</div><div class="info-val">${data.type || '未入力'}</div></div>
+    <div class="info-cell head"><div class="info-label">現在の状況</div><div class="info-val">${statusLabel}</div></div>
+    <div class="info-cell"><div class="info-label">築年数</div><div class="info-val">${data.age2 || '未入力'}</div></div>
+    <div class="info-cell"><div class="info-label">相続人の人数</div><div class="info-val">${data.heirs || '未入力'}</div></div>
+    <div class="info-cell"><div class="info-label">年金月額</div><div class="info-val">${pensionLabel}</div></div>
+    <div class="info-cell"><div class="info-label">作成者</div><div class="info-val" style="font-size:11px;">（記入してください）</div></div>
   </div>
 
   <h2>🏠 実家の概算価格レンジ</h2>
-  <div class="price">${p.low.toLocaleString()}万円 〜 ${p.high.toLocaleString()}万円</div>
-  <div style="font-size:12px;color:#6b6b6b;">※国土交通省公開データに基づく概算（誤差±25〜35%）</div>
+  <div class="price-box">
+    <div>
+      <div style="font-size:11px;color:#666;margin-bottom:4px;">推定売却価格レンジ（参考値）</div>
+      <div class="price-main">${p.low.toLocaleString()}万円 〜 ${p.high.toLocaleString()}万円</div>
+    </div>
+    <div class="price-sub">
+      ※国土交通省公開データに基づく概算<br>
+      ※誤差±25〜35%。実際の査定は不動産会社へ<br>
+      ※REINFOLIB API（国交省）参照
+    </div>
+  </div>
 
-  <h2>📊 4つの選択肢の特徴</h2>
-  <table>
-    <tr><th>選択肢</th><th>特徴・メリット</th><th>注意点・リスク</th></tr>
-    <tr><td><strong>売却</strong></td><td>まとまった資金化・管理不要</td><td>親の住まい確保・家族合意</td></tr>
-    <tr><td><strong>賃貸</strong></td><td>毎月の収入・資産保有継続</td><td>管理・トラブル・空室リスク</td></tr>
-    <tr><td><strong>住み続ける</strong></td><td>現状維持・安心感</td><td>将来の空き家・介護との兼ね合い</td></tr>
-    <tr><td><strong>リバースモーゲージ</strong></td><td>住みながら資金化</td><td>金利・残債・相続への影響</td></tr>
+  <h2>💡 今の状況へのアドバイス</h2>
+  <div class="advice-box">${situationAdvice}</div>
+
+  <h2>📊 4つの選択肢の比較</h2>
+  <table class="compare-table">
+    <tr>
+      <th style="width:14%">選択肢</th>
+      <th style="width:18%">概算金額</th>
+      <th style="width:25%">メリット</th>
+      <th style="width:25%">注意点・リスク</th>
+      <th style="width:18%">向いているケース</th>
+    </tr>
+    <tr>
+      <td><div class="opt-name">💴 売却</div></td>
+      <td><div class="opt-amount">一時金<br>${Math.round(p.mid*0.9/100)*100}万円前後</div></td>
+      <td><span class="tag-good">資金化</span><span class="tag-good">管理不要</span><span class="tag-good">空き家解消</span></td>
+      <td><span class="tag-warn">親の住まい確保</span><span class="tag-warn">家族合意が必要</span><span class="tag-risk">譲渡所得税</span></td>
+      <td>施設入所済み・空き家・相続人複数</td>
+    </tr>
+    <tr>
+      <td><div class="opt-name">🔑 賃貸</div></td>
+      <td><div class="opt-amount">月収入<br>${rent}〜${rent+2}万円/月</div></td>
+      <td><span class="tag-good">継続収入</span><span class="tag-good">資産保有</span></td>
+      <td><span class="tag-warn">管理の手間</span><span class="tag-warn">空室リスク</span><span class="tag-risk">修繕費用</span></td>
+      <td>親が施設・子が遠方・資産を残したい</td>
+    </tr>
+    <tr>
+      <td><div class="opt-name">🏠 住み続ける</div></td>
+      <td><div class="opt-amount">一時金なし<br>現状維持</div></td>
+      <td><span class="tag-good">安心感</span><span class="tag-good">引越不要</span></td>
+      <td><span class="tag-risk">空き家リスク増</span><span class="tag-warn">固定費継続</span><span class="tag-warn">老朽化</span></td>
+      <td>親が健在・将来の方針を検討中</td>
+    </tr>
+    <tr>
+      <td><div class="opt-name">📊 リバース<br>モーゲージ</div></td>
+      <td><div class="opt-amount">月受取<br>${revM}〜${revM+3}万円/月</div></td>
+      <td><span class="tag-good">住みながら資金化</span><span class="tag-good">毎月受取</span></td>
+      <td><span class="tag-risk">残債が相続に影響</span><span class="tag-warn">金利変動リスク</span></td>
+      <td>65〜75歳・売却したくない・年金不足</td>
+    </tr>
   </table>
 
   <h2>💬 家族で話し合うポイント</h2>
-  <ul class="check-list">
-    <li>親は今の住まいをどうしたいと思っているか</li>
-    <li>子ども・兄弟それぞれの希望・意見は何か</li>
-    <li>介護・施設入所の可能性はいつ頃か</li>
-    <li>相続の方針（資産を残したい・残さなくてもよい）</li>
-    <li>空き家になった場合の管理・維持費は誰が担うか</li>
-    <li>売却する場合、親の引っ越し先はどうするか</li>
-  </ul>
-
-  <h2>❓ 専門家に確認すべき質問</h2>
-  <ul class="check-list">
-    <li>実際の売却価格・買取価格の査定</li>
-    <li>リバースモーゲージの適用条件と月額</li>
-    <li>売却した場合の税金（譲渡所得税）</li>
-    <li>相続時の名義変更・手続き</li>
-    <li>賃貸に出す場合の管理会社の選び方</li>
-  </ul>
-
-  <div class="note">
-    ⚠️ 本シートの金額はすべて参考値です。実際の取引価格・融資条件は市場・個別事情により異なります。
-    最終判断は必ず専門家（不動産会社・FP・税理士・弁護士等）にご相談ください。<br>
-    本サービスは宅建業法・金融商品取引法上の仲介・助言行為を行いません。
+  <div class="check-section">
+    <div>
+      <h3>親の気持ち・希望</h3>
+      <ul class="check-list">
+        <li><div class="check-box"></div>今の家に住み続けたいか</li>
+        <li><div class="check-box"></div>売却することへの気持ちは</li>
+        <li><div class="check-box"></div>施設入所を考えているか</li>
+        <li><div class="check-box"></div>子どもに迷惑をかけたくない気持ちはあるか</li>
+        <li><div class="check-box"></div>財産を子どもに残したいか</li>
+      </ul>
+      <h3>お金・生活のこと</h3>
+      <ul class="check-list">
+        <li><div class="check-box"></div>毎月の生活費は年金で足りているか</li>
+        <li><div class="check-box"></div>介護・医療費の備えはあるか</li>
+        <li><div class="check-box"></div>固定資産税・修繕費の負担は誰が担うか</li>
+        <li><div class="check-box"></div>住宅ローンの残債はあるか</li>
+      </ul>
+    </div>
+    <div>
+      <h3>子ども・兄弟の意見</h3>
+      <ul class="check-list">
+        <li><div class="check-box"></div>誰かが実家に住む可能性はあるか</li>
+        <li><div class="check-box"></div>兄弟間で意見の違いはないか</li>
+        <li><div class="check-box"></div>管理・維持費を誰が負担するか</li>
+        <li><div class="check-box"></div>相続の方針は共有されているか</li>
+      </ul>
+      <h3>将来のリスク</h3>
+      <ul class="check-list">
+        <li><div class="check-box"></div>空き家になった場合の管理は誰がするか</li>
+        <li><div class="check-box"></div>親が急に入院した場合の対応は決まっているか</li>
+        <li><div class="check-box"></div>実家の名義・権利関係は整理されているか</li>
+        <li><div class="check-box"></div>遺言書・エンディングノートはあるか</li>
+      </ul>
+    </div>
   </div>
+
+  <h2>❓ 専門家に確認すべき質問リスト</h2>
+  <table class="qa-table">
+    <tr><th class="q-col">確認したいこと</th><th>相談先</th><th class="a-col">回答・メモ欄</th></tr>
+    <tr><td>実際の売却価格・買取価格の査定</td><td>不動産会社</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>売却した場合の税金（譲渡所得税）と特例の適用</td><td>税理士</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>リバースモーゲージの適用条件・月額・金利</td><td>金融機関</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>賃貸に出す場合の管理会社選びと収益シミュレーション</td><td>不動産会社</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>相続時の名義変更・手続き・費用</td><td>司法書士</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>老後の生活費・介護費の見通しとライフプラン</td><td>FP</td><td class="a-col">&nbsp;</td></tr>
+    <tr><td>遺言書・家族信託の作成方法</td><td>弁護士・司法書士</td><td class="a-col">&nbsp;</td></tr>
+  </table>
+
+  <h2>✏️ 家族会議メモ欄</h2>
+  <div class="memo-grid">
+    <div class="memo-box">
+      <div class="memo-label">親の意見・希望</div>
+      <div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div>
+    </div>
+    <div class="memo-box">
+      <div class="memo-label">子ども・兄弟の意見</div>
+      <div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div>
+    </div>
+    <div class="memo-box">
+      <div class="memo-label">決まったこと・方針</div>
+      <div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div>
+    </div>
+    <div class="memo-box">
+      <div class="memo-label">次回話し合う日・担当</div>
+      <div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div><div class="memo-lines"></div>
+    </div>
+  </div>
+
+  <h2>🗓️ 次のステップ</h2>
+  <ol class="step-list">
+    <li>このシートを家族（兄弟・親）と共有し、それぞれの意見を聞いてみる</li>
+    <li>不動産会社に無料査定を依頼し、実際の売却価格レンジを確認する</li>
+    <li>必要に応じてFP・税理士・司法書士に相談し、税金・相続の具体的な数字を把握する</li>
+    <li>家族全員が納得できる方針を決め、期限（いつまでに決める）を設定する</li>
+    <li>決まった方針を実行する（売却・賃貸・リバースモーゲージの申込など）</li>
+  </ol>
+
+  <div class="footer-note">
+    ⚠️【免責事項】本シートの金額はすべて参考値であり、実際の取引価格・賃貸収入・融資額を保証するものではありません。
+    本サービスは不動産の仲介行為・金融商品の勧誘・個別の法的・税務的判断を行うものではありません（宅建業法・金融商品取引法等に基づく）。
+    最終判断は必ず不動産会社・FP・税理士・弁護士等の専門家にご相談ください。｜実家どうするナビ jikka-navi.net
+  </div>
+
   <script>window.print();<\/script>
   </body></html>`);
   win.document.close();
