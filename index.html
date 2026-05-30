@@ -29,7 +29,7 @@ body {
   font-family: 'Noto Sans JP', sans-serif;
   color: var(--text);
   background: #fafaf8;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
 }
 
@@ -90,7 +90,7 @@ header {
   background: var(--white);
   color: var(--green);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 17px;
   padding: 16px 40px;
   border-radius: 50px;
   text-decoration: none;
@@ -111,7 +111,7 @@ header {
   flex-wrap: wrap;
 }
 .trust-item { font-size: 13px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
-.trust-icon { font-size: 16px; }
+.trust-icon { font-size: 17px; }
 
 /* CONTAINER */
 .container { max-width: 680px; margin: 0 auto; padding: 0 16px; }
@@ -167,7 +167,7 @@ header {
   margin-bottom: 20px;
 }
 .form-card h2 {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 20px;
   color: var(--text);
@@ -185,17 +185,17 @@ header {
 
 /* SELECT BUTTONS */
 .choice-group { margin-bottom: 20px; }
-.choice-label { font-size: 14px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
+.choice-label { font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
 .choice-label .required { color: var(--amber); font-size: 11px; margin-left: 6px; }
 .choice-grid { display: grid; gap: 8px; }
 .choice-grid.col2 { grid-template-columns: 1fr 1fr; }
 .choice-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
 .choice-btn {
-  padding: 12px 8px;
+  padding: 13px 8px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   background: var(--white);
-  font-size: 14px;
+  font-size: 15px;
   font-family: 'Noto Sans JP', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
@@ -219,7 +219,7 @@ header {
   color: white;
   border: none;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   font-family: 'Noto Sans JP', sans-serif;
   cursor: pointer;
@@ -268,7 +268,7 @@ header {
 .icon-rent { background: #ddeeff; }
 .icon-stay { background: #f0f0f0; }
 .icon-rev  { background: #ede8fd; }
-.result-card-title { font-size: 15px; font-weight: 700; }
+.result-card-title { font-size: 16px; font-weight: 700; }
 .result-card-subtitle { font-size: 12px; color: var(--text-sub); }
 .result-row {
   display: flex;
@@ -285,7 +285,7 @@ header {
   background: var(--gray-light);
   border-radius: 8px;
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-sub);
   margin-top: 12px;
   line-height: 1.6;
@@ -335,7 +335,7 @@ header {
   color: #fff;
 }
 .affili-note {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-sub);
   text-align: center;
   margin-top: 6px;
@@ -370,7 +370,7 @@ header {
   background: var(--gray-light);
   border-radius: 8px;
   padding: 14px 16px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
   line-height: 1.7;
   margin-bottom: 20px;
@@ -385,7 +385,7 @@ header {
   text-align: center;
   margin-bottom: 20px;
 }
-.pdf-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.pdf-section h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
 .pdf-section p { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; line-height: 1.7; }
 .pdf-btn {
   display: inline-block;
@@ -480,8 +480,8 @@ header {
   border-radius: 20px;
   margin-bottom: 8px;
 }
-.column-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
-.column-card p { font-size: 13px; color: var(--text-sub); line-height: 1.7; margin-bottom: 14px; }
+.column-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+.column-card p { font-size: 14px; color: var(--text-sub); line-height: 1.7; margin-bottom: 14px; }
 
 /* FOOTER */
 footer {
@@ -500,11 +500,153 @@ footer {
 /* ANIMATE */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { animation: fadeIn 0.4s ease forwards; }
+
+/* トップに戻るボタン（固定） */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: opacity 0.3s, transform 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-2px); background: var(--green-mid); }
+
+/* コラム別ページ */
+.page { display: none; }
+.page.active { display: block; }
+#mainPage { display: block; }
+
+/* コラム記事ページ */
+.article-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+.article-header {
+  padding: 32px 0 24px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 28px;
+}
+.article-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 16px;
+  background: none;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 0;
+}
+.article-back:hover { text-decoration: underline; }
+.article-tag {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.article-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 4vw, 26px);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.article-lead {
+  font-size: 15px;
+  color: var(--text-sub);
+  line-height: 1.8;
+  padding: 16px;
+  background: var(--green-light);
+  border-radius: 8px;
+  border-left: 4px solid var(--green);
+}
+.article-body h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  color: var(--green);
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-light);
+}
+.article-body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+.article-body p {
+  font-size: 16px;
+  line-height: 1.9;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.article-body ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.article-body ul li {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.article-box {
+  background: var(--amber-light);
+  border: 1px solid #f0c8a0;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 20px 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.article-box strong { color: var(--amber); }
+.article-data {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-sub);
+}
+.article-cta {
+  background: linear-gradient(135deg, #1a7a5e, #2d9e7a);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin: 32px 0;
+  color: white;
+}
+.article-cta h3 { font-size: 16px; margin-bottom: 8px; }
+.article-cta p { font-size: 13px; opacity: 0.9; margin-bottom: 16px; }
+
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
+<div id="mainPage" class="page">
 <header>
   <div class="logo-mark">🏠</div>
   <div>
@@ -821,7 +963,7 @@ footer {
 
       <div class="column-card">
         <span class="column-tag">売却</span>
-        <h3>相続した実家、売却すべき？そのままにするリスクとは</h3>
+        <h3 style="cursor:pointer;color:var(--green);" onclick="showPage('article1')">相続した実家、売却すべき？そのままにするリスクとは →</h3>
         <p>空き家のまま放置すると固定資産税・管理費・老朽化リスクが年々増加します。売却を検討するタイミングと注意点を解説します。</p>
         <!-- ミライアス -->
         <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BMJRTM+4I6M+5YJRM" rel="nofollow" class="affili-btn affili-btn-green" style="font-size:13px;padding:10px 16px;">
@@ -832,7 +974,7 @@ footer {
 
       <div class="column-card">
         <span class="column-tag">空き家活用</span>
-        <h3>空き家になった実家を「貸す」選択肢。借上げサービスとは？</h3>
+        <h3 style="cursor:pointer;color:var(--green);" onclick="showPage('article2')">空き家になった実家を「貸す」選択肢。借上げサービスとは？ →</h3>
         <p>売却せずに毎月収入を得る方法として、借上げサービスが注目されています。民泊・シェアハウスへの転用で空き家を収益化する仕組みを解説します。</p>
         <!-- クロスハウス -->
         <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+B72I3E+4EZ2+NTJWY" rel="nofollow" class="affili-btn affili-btn-purple" style="font-size:13px;padding:10px 16px;">
@@ -843,7 +985,7 @@ footer {
 
       <div class="column-card">
         <span class="column-tag">訳あり・借地権</span>
-        <h3>「売れない」と思っている実家でも売れる？訳あり物件の買取とは</h3>
+        <h3 style="cursor:pointer;color:var(--green);" onclick="showPage('article3')">「売れない」と思っている実家でも売れる？訳あり物件の買取とは →</h3>
         <p>再建築不可・借地権・築50年以上・ゴミ屋敷…。一般市場では売れにくい物件でも専門の買取業者なら対応できる場合があります。</p>
         <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BG0062+5TF6+5YJRM" rel="nofollow" class="affili-btn affili-btn-green" style="font-size:13px;padding:10px 16px;">
           → 訳あり物件買取センターに相談（無料）
@@ -853,7 +995,7 @@ footer {
 
       <div class="column-card">
         <span class="column-tag">リフォーム</span>
-        <h3>実家を売る前にリフォームすべき？費用と効果を徹底比較</h3>
+        <h3 style="cursor:pointer;color:var(--green);" onclick="showPage('article4')">実家を売る前にリフォームすべき？費用と効果を徹底比較 →</h3>
         <p>リフォームで売却価格が上がるケースとそうでないケースがあります。どこをどの程度直すべきか、複数社の見積もりで比較するのが鉄則です。</p>
         <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BLCWM2+5UT6+5YJRM" rel="nofollow" class="affili-btn affili-btn-orange" style="font-size:13px;padding:10px 16px;">
           → Re:estでリフォーム見積もり比較（無料）
@@ -863,7 +1005,7 @@ footer {
 
       <div class="column-card">
         <span class="column-tag">資金調達</span>
-        <h3>実家を担保に資金を借りる「不動産担保ローン」とは？</h3>
+        <h3 style="cursor:pointer;color:var(--green);" onclick="showPage('article5')">実家を担保に資金を借りる「不動産担保ローン」とは？ →</h3>
         <p>売却はしたくないが介護費・生活費が必要な場合、不動産担保ローンという選択肢があります。リバースモーゲージとの違いも解説します。</p>
         <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+CGBG2I+5PBE+5YJRM" rel="nofollow" class="affili-btn affili-btn-blue" style="font-size:13px;padding:10px 16px;">
           → 丸の内AMSで無料審査申込
@@ -877,12 +1019,288 @@ footer {
 </div>
 
 <!-- FOOTER -->
+
+<!-- トップに戻るボタン -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  ▲ トップへ戻る
+</button>
+
+</div><!-- /mainPage -->
+
+<!-- ===== コラム別ページ群 ===== -->
+
 <footer>
   <div style="font-weight:700;font-size:14px;margin-bottom:8px;">実家どうするナビ</div>
   <div>本サービスは情報提供を目的としており、不動産売買・金融商品の勧誘・法的判断を行うものではありません。</div>
   <div style="margin-top:4px;">当サイトはA8.netのアフィリエイトプログラムに参加しています。</div>
   <div style="margin-top:8px;">© 2026 実家どうするナビ</div>
 </footer>
+
+<!-- 記事1：売却すべき？放置リスク -->
+<div id="article1" class="page">
+  <div class="article-page">
+    <div class="article-header">
+      <button class="article-back" onclick="showPage('mainPage')">← コラム一覧に戻る</button>
+      <div class="article-tag">売却</div>
+      <h1 class="article-title">相続した実家、売却すべき？<br>放置するとどれだけ損をするか</h1>
+      <div class="article-lead">
+        「とりあえずそのままにしておこう」は危険です。空き家を放置すると、資産価値の目減りだけでなく、固定資産税の増加・老朽化リスク・特定空き家指定など、年々コストと問題が膨らみます。
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>空き家放置で起きること——5年間の現実</h2>
+      <p>親が施設に入り、実家が空き家になった。「売るのはかわいそう」「いつか使うかも」と思いながら、何もしないまま数年が過ぎる——これは非常によくあるケースです。しかし、その「放置」は静かに大きなコストを生み続けています。</p>
+      
+      <div class="article-box">
+        <strong>放置5年間の試算（地方都市・戸建て2000万円の場合）</strong><br>
+        ・固定資産税：年15万円 × 5年 = 75万円<br>
+        ・火災保険：年4万円 × 5年 = 20万円<br>
+        ・維持管理（草刈り・清掃等）：年10万円 × 5年 = 50万円<br>
+        ・建物の老朽化による価値下落：推定▲200〜400万円<br>
+        <strong>合計：5年で300〜500万円以上の損失</strong>
+      </div>
+
+      <h2>空き家放置の5大リスク</h2>
+      <h3>① 固定資産税が最大6倍になる</h3>
+      <p>住宅が建っている土地は「住宅用地の特例」として固定資産税が最大1/6に軽減されています。しかし、自治体から「特定空き家」に指定されると、この特例が外れ、固定資産税が最大6倍に跳ね上がります。2023年の法改正により、管理が不十分な「管理不全空き家」への対策も強化されています。</p>
+
+      <h3>② 建物の資産価値が急速に目減りする</h3>
+      <p>人が住まなくなった建物は劣化が急速に進みます。換気されないことで湿気がこもり、カビ・腐食・シロアリ被害が発生しやすくなります。一般的に、空き家になってから5年で建物価値は20〜40%下落するとも言われます。</p>
+
+      <h3>③ 近隣への損害賠償リスク</h3>
+      <p>老朽化した建物の外壁や屋根材が落下して近隣に被害を与えた場合、所有者が損害賠償責任を負う可能性があります。「知らなかった」では済まされないケースが増えています。</p>
+
+      <h3>④ 相続人が増えると売れなくなる</h3>
+      <p>放置している間に親が亡くなり、次の世代へ相続が発生すると、相続人がさらに増えてしまいます。売却には全員の合意が必要なため、一人でも反対すると売れない状態になります。早めに動くほど、意思決定がシンプルです。</p>
+
+      <h3>⑤ 行政代執行による強制解体</h3>
+      <p>危険な状態の空き家は、自治体が所有者に代わって強制解体（行政代執行）を行うことがあります。その費用は後から所有者に請求されます。解体費用は100〜300万円程度が一般的です。</p>
+
+      <h2>売却を検討すべきタイミング</h2>
+      <ul>
+        <li>親が施設に入って1年以上空き家になっている</li>
+        <li>誰も住む予定がない</li>
+        <li>維持管理に手が回らない</li>
+        <li>相続人が複数いて意見が割れそう</li>
+        <li>建物が築30年以上で修繕費がかかりそう</li>
+      </ul>
+
+      <div class="article-data">
+        📊 参考データ：国土交通省「空き家等対策の推進に関する特別措置法」2023年改正により、管理不全空き家への固定資産税特例除外が可能になりました。全国の空き家数は約900万戸（総務省2023年調査）と過去最多を更新しています。
+      </div>
+
+      <h2>まず「今の実家がいくらで売れるか」を知ることから</h2>
+      <p>売却を決断する前に、まず査定を受けることをおすすめします。査定は無料で、断っても問題ありません。「思ったより高く売れる」と分かれば決断しやすくなりますし、「想定より安い」と分かれば今後の戦略を立てやすくなります。</p>
+
+      <div class="article-cta">
+        <h3>🏠 まず無料査定で「実家の今の価値」を確認</h3>
+        <p>査定だけで成約の義務はありません。複数社で比較するのがおすすめです。</p>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BMJRTM+4I6M+5YJRM" rel="nofollow" class="affili-btn affili-btn-green" style="display:inline-block;max-width:400px;margin:0 auto;">🏠 ミライアスで無料査定する（確定率100%）</a>
+        <img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=4B3VR7+BMJRTM+4I6M+5YJRM" alt="">
+        <br><br>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BG0062+5TF6+5YJRM" rel="nofollow" class="affili-btn" style="display:inline-block;max-width:400px;margin:0 auto;background:#e07b39;color:#fff;">🏚️ 訳あり・空き家でも買取（訳あり物件買取センター）</a>
+        <img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4B3VR7+BG0062+5TF6+5YJRM" alt="">
+      </div>
+    </div>
+    <button class="article-back" onclick="showPage('mainPage');window.scrollTo({top:0,behavior:'smooth'})">← トップページに戻る</button>
+  </div>
+</div>
+
+<!-- 記事2：空き家を貸す -->
+<div id="article2" class="page">
+  <div class="article-page">
+    <div class="article-header">
+      <button class="article-back" onclick="showPage('mainPage')">← コラム一覧に戻る</button>
+      <div class="article-tag">空き家活用</div>
+      <h1 class="article-title">空き家になった実家を「貸す」選択肢。<br>放置より収入、売却より手元に残る</h1>
+      <div class="article-lead">
+        売りたくない、でも空き家のままにしておくのも不安——そんな方に知ってほしいのが「借上げサービス」です。民泊・シェアハウスとして運用することで、管理の手間なく毎月収入を得られます。
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>空き家を放置するより「貸す」ほうが得な理由</h2>
+      <p>空き家を放置していると、固定資産税・火災保険・管理費が毎年かかります。一方、賃貸や借上げサービスに出せば、これらのコストをカバーしながら収益を得ることができます。</p>
+
+      <div class="article-box">
+        <strong>賃貸 vs 放置 の比較（年間）</strong><br>
+        放置：固定資産税15万＋管理費10万＋保険4万 = <strong>▲29万円/年</strong><br>
+        賃貸：家賃収入60〜120万 − 管理費・修繕費20万 = <strong>+40〜100万円/年</strong><br>
+        <strong>差額：年70〜130万円の差</strong>
+      </div>
+
+      <h2>一般賃貸 vs 借上げサービスの違い</h2>
+      <h3>一般賃貸の注意点</h3>
+      <p>不動産会社を通じて入居者を募集する一般的な方法です。ただし、空室リスク・入居者トラブル・退去後のリフォーム費用など、オーナー側の負担も大きいのが現実です。</p>
+
+      <h3>借上げサービス（サブリース）のメリット</h3>
+      <p>クロスハウスのような借上げサービスは、業者が建物ごと借り上げて管理・運営します。オーナーは管理の手間なく毎月一定の収入を得られます。民泊・シェアハウスへの転用で、一般賃貸より高い収益が見込めるケースもあります。</p>
+      <ul>
+        <li>空室でも一定の収入が入る（保証型の場合）</li>
+        <li>管理・清掃・入居者対応はすべて業者が行う</li>
+        <li>遠方に住んでいても安心して任せられる</li>
+        <li>リフォーム費用を業者が負担するケースもある</li>
+      </ul>
+
+      <div class="article-data">
+        📊 参考：クロスハウスは民泊・シェアハウスの借上げ実績1万室超。空き家・アパート・マンションどれも対応可能。無料で査定を受けられます。
+      </div>
+
+      <div class="article-cta">
+        <h3>🏢 空き家・物件の借上げ査定（無料）</h3>
+        <p>査定だけで契約の義務はありません。まず「いくらで貸せるか」を確認しましょう。</p>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+B72I3E+4EZ2+NTJWY" rel="nofollow" class="affili-btn affili-btn-purple" style="display:inline-block;max-width:400px;margin:0 auto;">🏢 クロスハウスで無料査定する</a>
+        <img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4B3VR7+B72I3E+4EZ2+NTJWY" alt="">
+      </div>
+    </div>
+    <button class="article-back" onclick="showPage('mainPage');window.scrollTo({top:0,behavior:'smooth'})">← トップページに戻る</button>
+  </div>
+</div>
+
+<!-- 記事3：訳あり物件 -->
+<div id="article3" class="page">
+  <div class="article-page">
+    <div class="article-header">
+      <button class="article-back" onclick="showPage('mainPage')">← コラム一覧に戻る</button>
+      <div class="article-tag">訳あり・借地権</div>
+      <h1 class="article-title">「売れない」と思っている実家でも売れる？<br>訳あり物件・借地権の専門買取とは</h1>
+      <div class="article-lead">
+        再建築不可・借地権・築50年以上・ゴミ屋敷……。一般の不動産会社では「難しい」と言われた物件でも、専門の買取業者なら対応できるケースが多くあります。
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>なぜ「売れない」と言われるのか</h2>
+      <p>一般的な不動産仲介では、エンドユーザー（一般の買い手）に売ることを前提にします。そのため、再建築できない土地・権利関係が複雑な物件・老朽化が激しい建物は「売りにくい」と判断され、断られることがあります。</p>
+      <p>しかし、専門の買取業者は自社でリノベーション・再販・活用を行うため、一般市場では売れにくい物件でも買い取ることができます。</p>
+
+      <h2>訳あり物件の主なケース</h2>
+      <ul>
+        <li><strong>再建築不可物件</strong>：接道条件を満たさない土地。一般市場では買い手がつきにくいが専門業者なら対応可</li>
+        <li><strong>借地権物件</strong>：土地は地主のもので建物だけ所有しているケース。権利関係が複雑なため専門知識が必要</li>
+        <li><strong>築50年以上の老朽建物</strong>：解体・更地渡しが条件になることも。専門業者なら現状のまま買取可能なケースも</li>
+        <li><strong>ゴミ屋敷・残置物あり</strong>：片付け費用が心配な方も、残置物そのままで買取できる業者がある</li>
+        <li><strong>遠方・管理できない空き家</strong>：相続した実家が遠方にあり管理できていないケース</li>
+      </ul>
+
+      <div class="article-box">
+        <strong>借地権の買取とは？</strong><br>
+        借地権（土地を借りて建物を建てる権利）は、通常の不動産売買より複雑です。地主との関係・契約内容によって価格が大きく変わります。専門の借地権買取業者なら、地主との交渉も含めてワンストップで対応してくれます。
+      </div>
+
+      <div class="article-cta">
+        <h3>🏚️ まず無料相談・査定を受けてみましょう</h3>
+        <p>どんな状態の物件でも相談OK。断っても費用は一切かかりません。</p>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BG0062+5TF6+5YJRM" rel="nofollow" class="affili-btn affili-btn-green" style="display:inline-block;max-width:400px;margin:0 auto;">訳あり物件買取センターに相談（無料）</a>
+        <img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4B3VR7+BG0062+5TF6+5YJRM" alt="">
+        <br><br>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+ATYYSA+5TEW+5YRHE" rel="nofollow" class="affili-btn affili-btn-blue" style="display:inline-block;max-width:400px;margin:0 auto;">借地権 無料相談ドットコムで相談</a>
+        <img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=4B3VR7+ATYYSA+5TEW+5YRHE" alt="">
+      </div>
+    </div>
+    <button class="article-back" onclick="showPage('mainPage');window.scrollTo({top:0,behavior:'smooth'})">← トップページに戻る</button>
+  </div>
+</div>
+
+<!-- 記事4：リフォーム -->
+<div id="article4" class="page">
+  <div class="article-page">
+    <div class="article-header">
+      <button class="article-back" onclick="showPage('mainPage')">← コラム一覧に戻る</button>
+      <div class="article-tag">リフォーム</div>
+      <h1 class="article-title">実家を売る前にリフォームすべき？<br>費用対効果と「やってはいけない」リフォーム</h1>
+      <div class="article-lead">
+        「少しきれいにすれば高く売れるのでは」と考えるのは自然なことです。しかし、リフォームすれば必ず売却価格が上がるわけではありません。費用対効果を正しく見極めることが重要です。
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>リフォームで売却価格が上がるケース・上がらないケース</h2>
+      <h3>効果が出やすいリフォーム</h3>
+      <ul>
+        <li>クロス（壁紙）の張り替え：費用10〜30万、清潔感で印象が大幅アップ</li>
+        <li>水回りの清掃・部分補修：キッチン・浴室・トイレの印象改善</li>
+        <li>外壁・屋根の防水処理：雨漏りリスクを取り除き買い手の不安を解消</li>
+        <li>残置物・不用品の撤去：内覧時の第一印象が決定的に変わる</li>
+      </ul>
+      <h3>費用対効果が低いリフォーム</h3>
+      <ul>
+        <li>キッチン・浴室の全面リフォーム：200〜500万かけても価格への反映は50〜100万程度のことも</li>
+        <li>築40年以上の建物への大規模投資：建物自体の価値より土地値が中心になるため回収困難</li>
+        <li>個人の趣味・好みに合わせたデザイン変更：買い手の好みと合わないと逆効果</li>
+      </ul>
+
+      <div class="article-box">
+        <strong>鉄則：「売却前提のリフォーム」は最小限に</strong><br>
+        不動産会社の査定を先に受け、「どこを直せば価格が上がるか」を確認してからリフォームするのが正解です。無計画なリフォームは費用の無駄になることがあります。
+      </div>
+
+      <h2>複数社の見積もり比較が必須な理由</h2>
+      <p>リフォームの見積もりは、同じ内容でも業者によって2〜3倍の差が出ることがあります。1社だけの見積もりで決めてしまうと、相場より高い金額を払うリスクがあります。無料の一括見積もりサービスを活用して、複数社を比較することをおすすめします。</p>
+
+      <div class="article-cta">
+        <h3>🔧 無料でリフォーム見積もりを比較する</h3>
+        <p>複数社から見積もりを取って比較。成約の義務はありません。</p>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BLCWM2+5UT6+5YJRM" rel="nofollow" class="affili-btn affili-btn-orange" style="display:inline-block;max-width:400px;margin:0 auto;">Re:estでリフォーム見積もり比較（無料）</a>
+        <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4B3VR7+BLCWM2+5UT6+5YJRM" alt="">
+        <br><br>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+C5LN6I+46CI+NTJWY" rel="nofollow" class="affili-btn affili-btn-blue" style="display:inline-block;max-width:400px;margin:0 auto;">防水工事の一括見積もり（防水セレクトナビ）</a>
+        <img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4B3VR7+C5LN6I+46CI+NTJWY" alt="">
+      </div>
+    </div>
+    <button class="article-back" onclick="showPage('mainPage');window.scrollTo({top:0,behavior:'smooth'})">← トップページに戻る</button>
+  </div>
+</div>
+
+<!-- 記事5：不動産担保ローン -->
+<div id="article5" class="page">
+  <div class="article-page">
+    <div class="article-header">
+      <button class="article-back" onclick="showPage('mainPage')">← コラム一覧に戻る</button>
+      <div class="article-tag">資金調達</div>
+      <h1 class="article-title">実家を担保に資金を借りる<br>「不動産担保ローン」とリバースモーゲージの違い</h1>
+      <div class="article-lead">
+        売却はしたくないが介護費・生活費が足りない——そんな場合に知っておきたい資金調達の選択肢を解説します。リバースモーゲージと不動産担保ローン、どちらがどんな人に向いているのか。
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>2つの仕組みの違い</h2>
+      <div class="article-box">
+        <strong>リバースモーゲージ</strong>：自宅を担保に金融機関から毎月一定額を受け取る。死亡時に不動産を売却して返済。主に60歳以上向け。<br><br>
+        <strong>不動産担保ローン</strong>：不動産を担保に一括または分割で融資を受ける。返済義務あり。年齢・用途制限が少なく柔軟。
+      </div>
+
+      <h2>どちらが向いているか</h2>
+      <h3>リバースモーゲージが向いている人</h3>
+      <ul>
+        <li>65歳以上で自宅に住み続けたい</li>
+        <li>年金だけでは生活費が足りない</li>
+        <li>相続人が少ない・相続財産を残す必要がない</li>
+        <li>毎月一定額を受け取りたい</li>
+      </ul>
+      <h3>不動産担保ローンが向いている人</h3>
+      <ul>
+        <li>まとまった資金が必要（介護費・リフォーム・事業資金など）</li>
+        <li>年齢・収入で通常のローンが組めない</li>
+        <li>複数の不動産を持っている</li>
+        <li>審査を早急に進めたい（最短即日の業者もある）</li>
+      </ul>
+
+      <div class="article-data">
+        📊 注意点：不動産担保ローンは金利が通常ローンより高めになることがあります。複数社で条件を比較することが重要です。また、返済できない場合は担保不動産が競売にかけられるリスクがあります。必ず専門家への相談を。
+      </div>
+
+      <div class="article-cta">
+        <h3>💰 不動産担保ローンの無料審査を受ける</h3>
+        <p>審査だけで契約の義務はありません。まず条件を確認しましょう。</p>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+CGBG2I+5PBE+5YJRM" rel="nofollow" class="affili-btn affili-btn-blue" style="display:inline-block;max-width:400px;margin:0 auto;">丸の内AMSで無料審査申込（審査最短即日）</a>
+        <img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4B3VR7+CGBG2I+5PBE+5YJRM" alt="">
+        <br><br>
+        <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+CI3QVU+3GA6+639IQ" rel="nofollow" class="affili-btn" style="display:inline-block;max-width:400px;margin:0 auto;background:#475569;color:#fff;">JFC 不動産担保ローンに問い合わせ</a>
+        <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4B3VR7+CI3QVU+3GA6+639IQ" alt="">
+      </div>
+    </div>
+    <button class="article-back" onclick="showPage('mainPage');window.scrollTo({top:0,behavior:'smooth'})">← トップページに戻る</button>
+  </div>
+</div>
+
 
 <script>
 // 郵便番号入力処理
@@ -1124,7 +1542,148 @@ function generatePDF() {
       h2{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#1a7a5e !important;color:#fff !important;}
       .step-list li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#1a7a5e !important;color:#fff !important;}
     }
-  </style></head><body>
+  
+/* トップに戻るボタン（固定） */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: opacity 0.3s, transform 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-2px); background: var(--green-mid); }
+
+/* コラム別ページ */
+.page { display: none; }
+.page.active { display: block; }
+#mainPage { display: block; }
+
+/* コラム記事ページ */
+.article-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+.article-header {
+  padding: 32px 0 24px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 28px;
+}
+.article-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 16px;
+  background: none;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 0;
+}
+.article-back:hover { text-decoration: underline; }
+.article-tag {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.article-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 4vw, 26px);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.article-lead {
+  font-size: 15px;
+  color: var(--text-sub);
+  line-height: 1.8;
+  padding: 16px;
+  background: var(--green-light);
+  border-radius: 8px;
+  border-left: 4px solid var(--green);
+}
+.article-body h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  color: var(--green);
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-light);
+}
+.article-body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+.article-body p {
+  font-size: 16px;
+  line-height: 1.9;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.article-body ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.article-body ul li {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.article-box {
+  background: var(--amber-light);
+  border: 1px solid #f0c8a0;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 20px 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.article-box strong { color: var(--amber); }
+.article-data {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-sub);
+}
+.article-cta {
+  background: linear-gradient(135deg, #1a7a5e, #2d9e7a);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin: 32px 0;
+  color: white;
+}
+.article-cta h3 { font-size: 16px; margin-bottom: 8px; }
+.article-cta p { font-size: 13px; opacity: 0.9; margin-bottom: 16px; }
+
+</style></head><body>
   <div class="doc-header">
     <div><div class="doc-title">🏠 家族会議シート</div><div style="font-size:12px;color:#1a7a5e;margin-top:2px;">実家どうするナビ</div></div>
     <div class="doc-meta">作成日：${new Date().toLocaleDateString('ja-JP')}<br>jikka-navi.net</div>
