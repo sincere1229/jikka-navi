@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実家を売る前にリフォームすべき？費用対効果と「やってはいけない」リフォーム｜実家どうするナビ</title>
+<meta name="description" content="リフォームすれば必ず高く売れるわけではありません。費用対効果の高いリフォームと避けるべき投資を解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #1a7a5e;
+  --green-light: #e8f5f0;
+  --green-mid: #2d9e7a;
+  --amber: #e07b39;
+  --amber-light: #fdf0e8;
+  --border: #e0ddd8;
+  --text: #1a1a1a;
+  --text-sub: #6b6b6b;
+  --white: #ffffff;
+  --gray-light: #f5f5f3;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: #fafaf8;
+  font-size: 19px;
+  line-height: 1.8;
+}
+/* HEADER */
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--green);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.logo-text { font-size: 20px; font-weight: 700; color: var(--green); }
+.logo-sub { font-size: 13px; color: var(--text-sub); margin-top: -2px; }
+.logo-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+/* ARTICLE */
+.article-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+.breadcrumb {
+  font-size: 14px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.breadcrumb a { color: var(--green); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { color: var(--text-sub); }
+
+.article-tag {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.article-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.article-lead {
+  font-size: 17px;
+  color: var(--text-sub);
+  line-height: 1.85;
+  padding: 18px 20px;
+  background: var(--green-light);
+  border-left: 5px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 36px;
+}
+.article-body h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 22px;
+  color: var(--green);
+  margin: 40px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--green-light);
+}
+.article-body h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 24px 0 10px;
+  color: var(--text);
+}
+.article-body p {
+  font-size: 18px;
+  line-height: 1.95;
+  margin-bottom: 18px;
+}
+.article-body ul {
+  padding-left: 22px;
+  margin-bottom: 18px;
+}
+.article-body ul li {
+  font-size: 17px;
+  line-height: 1.85;
+  margin-bottom: 8px;
+}
+.article-box {
+  background: var(--amber-light);
+  border: 1px solid #f0c8a0;
+  border-left: 5px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  padding: 18px 20px;
+  margin: 24px 0;
+  font-size: 17px;
+  line-height: 1.85;
+}
+.article-box strong { color: var(--amber); }
+.article-data {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 24px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-sub);
+}
+
+/* CTA */
+.article-cta {
+  background: linear-gradient(135deg, #1a7a5e, #2d9e7a);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  margin: 36px 0;
+  color: white;
+}
+.article-cta h3 { font-size: 20px; margin-bottom: 10px; }
+.article-cta p { font-size: 15px; opacity: 0.9; margin-bottom: 20px; line-height: 1.7; }
+.cta-btn {
+  display: block;
+  max-width: 460px;
+  margin: 0 auto 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  border-radius: 50px;
+  padding: 16px 20px;
+  font-size: 17px;
+  transition: transform 0.2s, opacity 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.cta-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+.cta-btn-white { background: white; color: var(--green); }
+.cta-btn-orange { background: var(--amber); color: white; }
+.cta-btn-blue { background: #2563eb; color: white; }
+.cta-btn-purple { background: #7c3aed; color: white; }
+.cta-note { font-size: 13px; opacity: 0.75; margin-top: 12px; }
+
+/* 関連コラム */
+.related-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 36px 0;
+}
+.related-title { font-size: 17px; font-weight: 700; color: var(--text-sub); margin-bottom: 16px; text-align: center; }
+.related-grid { display: grid; gap: 10px; }
+.related-link {
+  display: block;
+  padding: 14px 18px;
+  background: var(--gray-light);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.2s;
+  border-left: 4px solid var(--green);
+}
+.related-link:hover { background: var(--green-light); }
+
+/* 戻るボタン */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 28px;
+  padding: 10px 0;
+}
+.back-btn:hover { text-decoration: underline; }
+
+/* 固定TOPボタン */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: opacity 0.3s, transform 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-sub);
+  line-height: 2;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.5s ease forwards; }
+</style>
+
+</head>
+<body>
+<header>
+  <a href="../index.html" class="logo-link">
+    <div class="logo-mark">🏠</div>
+    <div>
+      <div class="logo-text">実家どうするナビ</div>
+      <div class="logo-sub">親の実家・老後・相続を家族で整理する</div>
+    </div>
+  </a>
+</header>
+<div class="article-wrap fade-in">
+  <nav class="breadcrumb">
+    <a href="../index.html">🏠 トップ</a>
+    <span>›</span>
+    <a href="../index.html#column">コラム一覧</a>
+    <span>›</span>
+    <span>リフォーム</span>
+  </nav>
+  <a href="../index.html" class="back-btn">← トップページに戻る</a>
+  <div class="article-tag">リフォーム</div>
+  <h1 class="article-title">実家を売る前にリフォームすべき？費用対効果と「やってはいけない」リフォーム</h1>
+  <div class="article-lead">「少しきれいにすれば高く売れるのでは」と考えるのは自然なことです。しかし、リフォームすれば必ず売却価格が上がるわけではありません。費用対効果を正しく見極めることが重要です。</div>
+  <div class="article-body">
+
+    <h2>リフォームで売却価格が上がるケース・上がらないケース</h2>
+    <h3>✅ 効果が出やすいリフォーム</h3>
+    <ul>
+      <li><strong>クロス（壁紙）の張り替え</strong>：費用10〜30万円。清潔感で印象が大幅アップ</li>
+      <li><strong>水回りの清掃・部分補修</strong>：キッチン・浴室・トイレの印象改善</li>
+      <li><strong>外壁・屋根の防水処理</strong>：雨漏りリスクを取り除き買い手の不安を解消</li>
+      <li><strong>残置物・不用品の撤去</strong>：内覧時の第一印象が決定的に変わる</li>
+    </ul>
+
+    <h3>❌ 費用対効果が低いリフォーム</h3>
+    <ul>
+      <li><strong>キッチン・浴室の全面リフォーム</strong>：200〜500万かけても価格への反映は50〜100万程度のことも</li>
+      <li><strong>築40年以上の建物への大規模投資</strong>：建物自体より土地値が中心になるため回収困難</li>
+      <li><strong>個人の趣味・好みに合わせたデザイン変更</strong>：買い手の好みと合わないと逆効果</li>
+    </ul>
+
+    <div class="article-box">
+      <strong>鉄則：「売却前提のリフォーム」は最小限に</strong><br><br>
+      不動産会社の査定を先に受け、「どこを直せば価格が上がるか」を確認してからリフォームするのが正解です。無計画なリフォームは費用の無駄になることがあります。
+    </div>
+
+    <h2>複数社の見積もり比較が必須な理由</h2>
+    <p>リフォームの見積もりは、同じ内容でも業者によって2〜3倍の差が出ることがあります。1社だけの見積もりで決めてしまうと、相場より高い金額を払うリスクがあります。</p>
+    <p>無料の一括見積もりサービスを活用して、複数社を比較することを強くおすすめします。</p>
+
+    <h2>防水工事は後回しにしてはいけない</h2>
+    <p>屋上・外壁・ベランダの防水は、放置すると雨漏りによる内部劣化につながります。売却前に防水処理をしておくことで、買い手の不安を取り除き、価格交渉でも有利になります。</p>
+
+    <div class="article-cta">
+      <h3>🔧 無料でリフォーム見積もりを比較する</h3>
+      <p>複数社から見積もりを取って比較。成約の義務はありません。</p>
+      <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+BLCWM2+5UT6+5YJRM" rel="nofollow" class="cta-btn cta-btn-white">🏠 Re:estでリフォーム見積もり比較（無料）</a>
+<img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4B3VR7+BLCWM2+5UT6+5YJRM" alt="">
+      <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR7+C5LN6I+46CI+NTJWY" rel="nofollow" class="cta-btn cta-btn-white">🔨 防水工事の一括見積もり（防水セレクトナビ）</a>
+<img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4B3VR7+C5LN6I+46CI+NTJWY" alt="">
+      <div class="cta-note">すべて無料・しつこい営業なし・断っても大丈夫</div>
+    </div>
+
+  </div>
+  <div class="related-section">
+    <div class="related-title">📚 関連コラムを読む</div>
+    <div class="related-grid">
+<a href="sell.html" class="related-link">📖 相続した実家、放置すると5年で300万以上の損失に</a>
+<a href="rent.html" class="related-link">📖 空き家を「貸す」選択肢——借上げサービスとは？</a>
+<a href="wakeari.html" class="related-link">📖 「売れない」実家でも売れる？訳あり・借地権の専門買取</a>
+<a href="loan.html" class="related-link">📖 不動産担保ローンとリバースモーゲージの違い</a>
+    </div>
+  </div>
+  <a href="../index.html" class="back-btn" style="margin-top:16px;">← トップページに戻る</a>
+</div>
+<footer>
+  <div style="font-weight:700;font-size:16px;margin-bottom:8px;">実家どうするナビ</div>
+  <div>本サービスは情報提供を目的としており、不動産売買・金融商品の勧誘・法的判断を行うものではありません。</div>
+  <div style="margin-top:4px;">当サイトはA8.netのアフィリエイトプログラムに参加しています。</div>
+  <div style="margin-top:8px;"><a href="../index.html" style="color:var(--green);">トップページに戻る</a></div>
+  <div style="margin-top:4px;">© 2026 実家どうするナビ</div>
+</footer>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲ トップへ</button>
+<script>
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('backToTop');
+  if (window.scrollY > 300) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+});
+</script>
+</body>
+</html>
