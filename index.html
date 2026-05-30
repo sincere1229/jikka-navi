@@ -925,9 +925,15 @@ footer {
 
       <!-- 詳細入力へ -->
       <div id="detailPrompt">
-        <button class="detail-toggle-btn" onclick="goStep2FromResult()" style="width:100%;padding:14px;background:var(--white);border:1.5px solid var(--green);border-radius:50px;color:var(--green);font-size:15px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;margin-bottom:12px;transition:background 0.2s;">
-          📊 詳細情報を入力してより正確に見る
-        </button>
+        <div style="background:var(--gray-light);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;text-align:center;">
+          <div style="font-size:15px;color:var(--text-sub);margin-bottom:12px;">
+            📊 <strong>築年数・相続人数・年金額</strong>を追加入力すると<br>より精度の高い診断結果が出ます
+          </div>
+          <button onclick="goStep2FromResult()" style="background:var(--green);color:#fff;border:none;border-radius:50px;padding:14px 32px;font-size:17px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:background 0.2s;">
+            ✏️ 詳細を入力して精度を上げる
+          </button>
+          <div style="font-size:13px;color:var(--text-sub);margin-top:8px;">任意入力・30秒で完了</div>
+        </div>
       </div>
 
       <!-- 農地あり専用書籍セクション -->
